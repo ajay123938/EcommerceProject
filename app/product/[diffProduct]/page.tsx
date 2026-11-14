@@ -2,6 +2,11 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { products } from "../../data/products";
 export const instant = false;
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 8b64992bc6d4d5108491067ee840b75b885edb39
 const wrapper: CSSProperties = {
   maxWidth: "1080px",
   margin: "0 auto",
