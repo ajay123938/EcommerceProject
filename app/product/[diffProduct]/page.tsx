@@ -1,12 +1,15 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import type { CSSProperties } from "react";
 import { products } from "../../data/products";
-export const instant = false;
-<<<<<<< HEAD
-=======
 
+// 1. Equivalent to getStaticPaths / static generation for App Router
+export async function generateStaticParams() {
+  return products.map((product) => ({
+    diffProduct: String(product.id),
+  }));
+}
 
->>>>>>> 8b64992bc6d4d5108491067ee840b75b885edb39
 const wrapper: CSSProperties = {
   maxWidth: "1080px",
   margin: "0 auto",
@@ -40,24 +43,19 @@ const imagePanel: CSSProperties = {
   borderRadius: "24px",
 };
 
-const sectionTitle: CSSProperties = {
-  fontSize: "0.95rem",
-  fontWeight: 600,
-  margin: "24px 0 10px",
-};
-
 export default async function ProductDetailPage({
   params,
 }: {
-  params: Promise<{ diffProduct: String }>;
-}) 
-{
-   const { diffProduct } = await params;
-   const product = products.find((p) => p.id === Number(diffProduct));
+  params: Promise<{ diffProduct: string }>;
+}) {
+  const { diffProduct } = await params;
+  const product = products.find((p) => p.id === Number(diffProduct));
 
+  // 2. Equivalent to returning { notFound: true } in getStaticProps
   if (!product) {
-    return(<>Not Found</>)
+    notFound();
   }
+
   return (
     <main style={wrapper}>
       <Link href="/product" style={backLink}>
@@ -115,7 +113,7 @@ export default async function ProductDetailPage({
             jacket on top. The fabric is breathable and gets softer with every
             wash, so it stays comfortable all day.
           </p>
-          </div>
+        </div>
       </div>
 
       {/* Buttons */}
@@ -132,11 +130,12 @@ export default async function ProductDetailPage({
             fontSize: "1rem",
             fontWeight: 700,
             cursor: "pointer",
-          }}>
-              Add to cart
-          </button>
-          <button
-            style={{
+          }}
+        >
+          Add to cart
+        </button>
+        <button
+          style={{
             flex: 1,
             minWidth: "160px",
             padding: "14px 24px",
@@ -147,9 +146,10 @@ export default async function ProductDetailPage({
             fontSize: "1rem",
             fontWeight: 700,
             cursor: "pointer",
-            }}>
-              Buy now
-          </button>
+          }}
+        >
+          Buy now
+        </button>
       </div>
     </main>
   );
