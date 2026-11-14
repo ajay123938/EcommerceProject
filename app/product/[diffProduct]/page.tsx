@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { products } from "../../data/products";
-
+export const instant = false;
 const wrapper: CSSProperties = {
   maxWidth: "1080px",
   margin: "0 auto",
